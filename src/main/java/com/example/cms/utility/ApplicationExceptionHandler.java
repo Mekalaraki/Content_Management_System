@@ -33,6 +33,7 @@ public class ApplicationExceptionHandler {
 		return errorResponse(HttpStatus.BAD_REQUEST,
 				ex.getMessage(),"user already exists with the given mail Id");
 	}
+	@ExceptionHandler
 private ResponseEntity<ErrorStructure<String>> handleUserNotFoundException(UserNotFoundException ex){
 	return errorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "user not exist with given id");
 }
