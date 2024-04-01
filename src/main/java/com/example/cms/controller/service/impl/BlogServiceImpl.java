@@ -22,14 +22,20 @@ public class BlogServiceImpl implements BlogService {
 	private BlogRepository  blogRepo;
 	private ResponseStructure<BlogResponse> responseStructure;
 	private UserRepository userRepo;
+	private ResponseStructure<Boolean> responsestructure;
+	
 	
 
-	public BlogServiceImpl(BlogRepository blogRepo, ResponseStructure<BlogResponse> responseStructure,UserRepository userRepo) {
+	
+	public BlogServiceImpl(BlogRepository blogRepo, ResponseStructure<BlogResponse> responseStructure,
+			UserRepository userRepo, ResponseStructure<Boolean> responsestructure2) {
 		super();
 		this.blogRepo = blogRepo;
 		this.responseStructure = responseStructure;
-		this.userRepo=userRepo;
+		this.userRepo = userRepo;
+		responsestructure = responsestructure2;
 	}
+
 	@Override
 	public ResponseEntity<ResponseStructure<BlogResponse>> createBlog(BlogRequest blogRequest,int userId) {
 		return userRepo.findById(userId).map(user->{
@@ -85,6 +91,15 @@ public class BlogServiceImpl implements BlogService {
 			throw new TitleAlreadyExistsException("failed to create blog");
 		if(blogRequest.getTopics().length < 1)
 			throw new TopicsNotSpecifiedException("failed to create blog");
+	}
+	@Override
+	public ResponseEntity<ResponseStructure<Boolean>> checkForBlog(String title) {
+		
+		return ResponseEntity.ok(
+				responsestructure.setStatus(HttpStatus.OK.value())
+				.setMessage("blog found success")
+				.setBody(blogRepo.existsByTitle(title)));
+				
 	}
 
 
