@@ -14,4 +14,6 @@ public interface BlogService {
 
 	ResponseEntity<ResponseStructure<BlogResponse>> updateBlog(BlogRequest blogRequest, int blogId);
 
+	ResponseEntity<ResponseStructure<Boolean>> checkForBlog(String title);
+
 }

@@ -33,5 +33,7 @@ public class BlogController {
 	ResponseEntity<ResponseStructure<BlogResponse>> updateBlog(@RequestBody BlogRequest blogRequest,@PathVariable int blogId){
 		return blogservice.updateBlog(blogRequest,blogId);
 	}
-
+ResponseEntity<ResponseStructure<Boolean>> checkForBlog(@PathVariable String title){
+	return blogservice.checkForBlog(title);
+}
 }
