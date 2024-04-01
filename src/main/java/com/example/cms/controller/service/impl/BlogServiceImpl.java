@@ -102,6 +102,17 @@ public class BlogServiceImpl implements BlogService {
 				
 	}
 
+	@Override
+	public ResponseEntity<ResponseStructure<BlogResponse>> findByBlogId(int blogId) {
+		
+		return blogRepo.findById(blogId).map(blog->
+		ResponseEntity.ok(
+				responseStructure.setStatus(HttpStatus.OK.value())
+				.setMessage("blog found success")
+				.setBody(mapToBlogResponse(blog)))).orElseThrow(()->new BlogNotFoundException("blog not found"));		
+				
+	}
+
 
 
 
