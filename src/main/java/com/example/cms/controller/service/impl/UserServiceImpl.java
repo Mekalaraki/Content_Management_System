@@ -83,6 +83,21 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	@Override
+	public ResponseEntity<ResponseStructure<UserResponse>> findUserById(int userId) {
+		
+		return userRepo.findById(userId).map(
+				user -> {
+					userRepo.save(user);
+					return ResponseEntity.ok(
+							responseStructure.setStatus(HttpStatus.OK.value())
+							.setMessage("user found")
+							.setBody(mapToUserResponse(user))
+							);
+				}) .orElseThrow(()-> new UserNotFoundException("user not found"));
+	}
+
+
 
 
 }
