@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Pattern;
 
@@ -18,8 +19,8 @@ public class Blog {
 	private String title;
 	private String[] topics;
 	private String about;
-	@ManyToMany
-	private List<User> user;
+	@ManyToOne
+	private User user;
 	
 	public int getBlogId() {
 		return blogId;
@@ -45,10 +46,10 @@ public class Blog {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	public List<User> getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(List<User> user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	
