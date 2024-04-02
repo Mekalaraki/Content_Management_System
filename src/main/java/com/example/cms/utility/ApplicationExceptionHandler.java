@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.cms.exception.BlogNotFoundException;
+import com.example.cms.exception.IllegalAccessRequestException;
+import com.example.cms.exception.PanelNotFoundByIdException;
 import com.example.cms.exception.TitleAlphabetsOnlyException;
 import com.example.cms.exception.TitleAlreadyExistsException;
 import com.example.cms.exception.TopicsNotSpecifiedException;
@@ -57,4 +59,13 @@ private ResponseEntity<ErrorStructure<String>> handleUserNotFoundException(UserN
 	private ResponseEntity<ErrorStructure<String>> handleTitleAlphabetsOnlyException(TitleAlphabetsOnlyException ta){
 		return errorResponse(HttpStatus.NO_CONTENT, ta.getMessage(), "Title accept only alphabets");
 	}
+	@ExceptionHandler
+	private ResponseEntity<ErrorStructure<String>> handleIllegalAccessRequestException(IllegalAccessRequestException ia){
+		return errorResponse(HttpStatus.NO_CONTENT, ia.getMessage(), "Title accept only alphabets");
+	}
+	@ExceptionHandler
+	private ResponseEntity<ErrorStructure<String>> handlePanelNotFoundByIdException(PanelNotFoundByIdException pn){
+		return errorResponse(HttpStatus.NO_CONTENT, pn.getMessage(), "Title accept only alphabets");
+	}
+
 }
