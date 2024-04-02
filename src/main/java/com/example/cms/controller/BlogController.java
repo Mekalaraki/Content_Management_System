@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class BlogController {
 			@ApiResponse(responseCode = "200",description = "blog updated"),
 			@ApiResponse(responseCode = "404" ,description = "Failed to update blog")
 	})
-
+@PutMapping("/blogs/{blogId}")
 	ResponseEntity<ResponseStructure<BlogResponse>> updateBlog(@RequestBody BlogRequest blogRequest,@PathVariable int blogId){
 		return blogservice.updateBlog(blogRequest,blogId);
 	}
@@ -60,4 +61,5 @@ ResponseEntity<ResponseStructure<Boolean>> checkForBlog(@PathVariable String tit
 ResponseEntity<ResponseStructure<BlogResponse>> findByBlogId(@PathVariable int blogId){
 	return blogservice.findByBlogId(blogId);
 }
+	
 }
