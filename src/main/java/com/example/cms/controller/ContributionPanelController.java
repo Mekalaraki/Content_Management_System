@@ -1,6 +1,7 @@
 package com.example.cms.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,5 +17,10 @@ private ContributionPanelService contributionPanelService;
 	@PutMapping("/users/{userId}/contribution-panels/{panelId}")
 	public ResponseEntity<ResponseStructure<ContributionPanelResponse>> addContributors(@PathVariable int userId,@PathVariable int panelId){
 		return contributionPanelService.addContributors(userId,panelId);
+	}
+	
+	@DeleteMapping("/users/{userId}/contribution-panels/{panelId}")
+	public ResponseEntity<ResponseStructure<ContributionPanelResponse>> removeUser(@PathVariable int userId,@PathVariable int panelId){
+		return contributionPanelService.removeUser(userId,panelId);
 	}
 }
