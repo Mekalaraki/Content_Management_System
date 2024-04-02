@@ -62,4 +62,24 @@ public class ContributionPanelServiceImpl implements ContributionPanelService {
 		
 		return new ContributionPanelResponse(panel.getPanelId());
 	}
-}
+	@Override
+	public ResponseEntity<ResponseStructure<ContributionPanelResponse>> removeUser(int userId, int panelId) {
+		
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		return	userRepo.findByEmail(email).map(owner->{
+			return contributionPanelRepo.findById(panelId).map(panel->{
+				if(!blogRepo.existsByUserAndContributionPanel(owner, panel))
+					throw new IllegalAccessRequestException("failed to remove contributor");
+				return userRepo.findById(userId).map(contributor->{
+					panel.getUsers().remove(contributor);
+					contributionPanelRepo.save(panel);
+					return ResponseEntity.ok(responseStructure.setStatus(HttpStatus.OK.value())
+							.setMessage("Contributor removed succesffuly")
+							.setBody(mapToContributionPanelResponse(panel)));
+				}).orElseThrow(()-> new UserNotFoundException("User not found"));
+			}).orElseThrow(()-> new PanelNotFoundByIdException("Panel not found"));
+		}).get();
+	};
+	}
+
