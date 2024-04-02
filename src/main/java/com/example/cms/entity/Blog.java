@@ -1,5 +1,6 @@
 package com.example.cms.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
@@ -21,6 +23,10 @@ public class Blog {
 	private String about;
 	@ManyToOne
 	private User user;
+	@OneToOne
+	private ContributionPanel contributionPanel;
+	@OneToMany(mappedBy = "blog")
+	private List<BlogPost> blogPosts = new ArrayList<BlogPost>(); 
 	
 	public int getBlogId() {
 		return blogId;
