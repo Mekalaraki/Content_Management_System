@@ -1,6 +1,6 @@
 package com.example.cms.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; 
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -36,8 +35,7 @@ public class User {
 	private LocalDateTime lastModifiedAt;
 	@OneToMany(mappedBy = "user")
 	private List<Blog> blogs=new ArrayList<Blog>();
-	@ManyToMany(mappedBy = "users")
-	private List<ContributionPanel> contributionPanels ;
+
 	
 	public int getUserId() {
 		return userId;
@@ -87,12 +85,7 @@ public class User {
 	public void setBlogs(List<Blog> blogs) {
 		this.blogs = blogs;
 	}
-	public List<ContributionPanel> getContributionPanels() {
-		return contributionPanels;
-	}
-	public void setContributionPanels(List<ContributionPanel> contributionPanels) {
-		this.contributionPanels = contributionPanels;
-	}
+	
 	
 	
 

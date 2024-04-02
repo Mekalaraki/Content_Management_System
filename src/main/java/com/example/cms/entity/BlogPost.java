@@ -1,9 +1,17 @@
 package com.example.cms.entity;
 
+import java.time.LocalDateTime;
+
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.example.cms.enums.PostType;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +24,6 @@ import jakarta.persistence.ManyToOne;
 
 public class BlogPost {
 	@Id
-	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int blogPostId;
 	private String title;
@@ -28,6 +35,15 @@ public class BlogPost {
 	private String[] seoTopics;
 	@ManyToOne
 	private Blog blog;
+	@CreatedBy
+	private String createdBy;
+	@CreatedDate
+	@Column(updatable = false)
+	private LocalDateTime createdAt;
+	@LastModifiedBy
+	private String lastModifiedBy;
+	@LastModifiedDate
+	private LocalDateTime lastModifiedAt;
 	public int getBlogPostId() {
 		return blogPostId;
 	}
@@ -81,6 +97,30 @@ public class BlogPost {
 	}
 	public void setBlog(Blog blog) {
 		this.blog = blog;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+	public LocalDateTime getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+	public void setLastModifiedAt(LocalDateTime lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
 	}
 	
 	

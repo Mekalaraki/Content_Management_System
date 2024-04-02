@@ -1,6 +1,6 @@
 package com.example.cms.controller.service.impl;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus; 
 import org.springframework.http.ResponseEntity; 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class ContributionPanelServiceImpl implements ContributionPanelService {
 				if(blogRepo.existsByUserAndContributionPanel(owner, panel))
 					throw new IllegalAccessRequestException("failed to add contributor");
 				return userRepo.findById(userId).map(contributor->{
-					panel.getUsers().add(contributor);
+					panel.getContributors().add(contributor);
 					contributionPanelRepo.save(panel);
 					return ResponseEntity.ok(responseStructure.setStatus(HttpStatus.OK.value())
 							.setMessage("Contributor added succesffuly")
@@ -72,7 +72,7 @@ public class ContributionPanelServiceImpl implements ContributionPanelService {
 				if(!blogRepo.existsByUserAndContributionPanel(owner, panel))
 					throw new IllegalAccessRequestException("failed to remove contributor");
 				return userRepo.findById(userId).map(contributor->{
-					panel.getUsers().remove(contributor);
+					panel.getContributors().remove(contributor);
 					contributionPanelRepo.save(panel);
 					return ResponseEntity.ok(responseStructure.setStatus(HttpStatus.OK.value())
 							.setMessage("Contributor removed succesffuly")
